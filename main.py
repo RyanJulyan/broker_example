@@ -38,6 +38,9 @@ from models.storage.pandas_broker_models.pandas_csv_update_params import (
 from models.storage.pandas_broker_models.pandas_csv_delete_params import (
     PandasCSVDeleteParams, )
 
+# Simple Service
+from services.storage.simple_storage_service import SimpleStorageService
+
 ##############
 # Sqlalchemy #
 ##############
@@ -153,3 +156,21 @@ broker.delete(delete_params)
 # Read remaining data
 result = broker.read(PandasCSVReadParams())
 print(result)
+
+# Instantiate the Pandas CSV Storage Broker
+pandas_csv_broker = PandasCSVStorageBroker()
+
+# Instantiate the SimpleStorageService with PandasCSVStorageBroker
+storage_service = SimpleStorageService[
+    PandasCSVStorageBroker,
+    PandasCSVConnectParams,
+    PandasCSVCreateParams,
+    PandasCSVReadParams,
+    PandasCSVUpdateParams,
+    PandasCSVDeleteParams,
+](storeage_broker=pandas_csv_broker)
+
+print()
+print("storage_service:")
+print(storage_service)
+print()

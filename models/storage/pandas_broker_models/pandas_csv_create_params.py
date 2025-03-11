@@ -3,9 +3,9 @@ from typing import Union, List, Dict
 
 import pandas as pd
 
-from models.storage.i_connect_params import IConnectParams
+from models.storage.i_create_params import ICreateParams
 
 
 @dataclass
-class PandasCSVCreateParams(IConnectParams):
+class PandasCSVCreateParams(ICreateParams):
     data: Union[pd.DataFrame, List[Dict]]

@@ -3,9 +3,9 @@ from typing import Callable
 
 import pandas as pd
 
-from models.storage.i_connect_params import IConnectParams
+from models.storage.i_update_params import IUpdateParams
 
 
 @dataclass
-class PandasCSVUpdateParams(IConnectParams):
+class PandasCSVUpdateParams(IUpdateParams):
     update_func: Callable[[pd.DataFrame], pd.DataFrame]
