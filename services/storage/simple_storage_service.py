@@ -12,6 +12,9 @@ from models.storage.i_delete_params import IDeleteParams
 # Broker
 from brokers.storage.i_storage_broker import IStorageBroker
 
+# Service
+from services.storage.i_storage_service import IStorageService
+
 # Define type variables bound to their expected classes
 TConnectParams = TypeVar('TConnectParams', bound=IConnectParams)
 TCreateParams = TypeVar('TCreateParams', bound=ICreateParams)
@@ -23,7 +26,7 @@ TStorageBroker = TypeVar('TStorageBroker', bound=IStorageBroker)
 
 
 @dataclass
-class SimpleStorageService(Generic[
+class SimpleStorageService(IStorageService[
     TStorageBroker,
     TConnectParams,
     TCreateParams,
@@ -31,19 +34,19 @@ class SimpleStorageService(Generic[
     TUpdateParams,
     TDeleteParams,
 ]):
-  storeage_broker: TStorageBroker
+  storage_broker: TStorageBroker
 
   def connect(self, params: TConnectParams):
-    return self.storeage_broker.connect(params=params)
+    return self.storage_broker.connect(params=params)
 
   def create(self, params: TCreateParams):
-    return self.storeage_broker.create(params=params)
+    return self.storage_broker.create(params=params)
 
   def read(self, params: TReadParams):
-    return self.storeage_broker.read(params=params)
+    return self.storage_broker.read(params=params)
 
   def update(self, params: TUpdateParams):
-    return self.storeage_broker.update(params=params)
+    return self.storage_broker.update(params=params)
 
   def delete(self, params: TDeleteParams):
-    return self.storeage_broker.delete(params=params)
+    return self.storage_broker.delete(params=params)

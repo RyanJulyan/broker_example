@@ -1,3 +1,5 @@
+from typing import get_type_hints
+
 from sqlalchemy import (
     MetaData,
     Table,
@@ -168,9 +170,23 @@ storage_service = SimpleStorageService[
     PandasCSVReadParams,
     PandasCSVUpdateParams,
     PandasCSVDeleteParams,
-](storeage_broker=pandas_csv_broker)
+](storage_broker=pandas_csv_broker)
 
 print()
 print("storage_service:")
 print(storage_service)
 print()
+
+connect_params = PandasCSVConnectParams(file_path="data.csv")
+storage_service.connect(connect_params)
+print()
+
+print()
+print("Should Fail with SQLAlchemy:")
+print()
+
+# Connect to the in-memory database
+connect_params = SQLAlchemyConnectParams(database_url="sqlite:///:memory:",
+                                         echo=True)
+
+storage_service.connect(connect_params)
